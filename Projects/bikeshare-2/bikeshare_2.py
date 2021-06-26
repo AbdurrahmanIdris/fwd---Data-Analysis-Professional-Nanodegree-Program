@@ -192,13 +192,23 @@ def user_stats(df):
     start_time = time.time()
 
     # Display counts of user types
-
+    subscribers_count = df['User Type'].value_counts()['Subscriber']
+    customers_count = df['User Type'].value_counts()['Customer']
+    print("Subscribers: {}, Customers: {}".format(subscribers_count, customers_count))
 
     # Display counts of gender
-
+    if 'Gender' in df:
+        males_count = df['Gender'].value_counts()['Male']
+        females_count = df['Gender'].value_counts()['Female']
+        print("Males: {}, Females: {}".format(males_count, females_count))
+        
 
     # Display earliest, most recent, and most common year of birth
-
+    if 'Birth Year' in df:
+        most_recent = df['Birth Year'].max()
+        earliest = df['Birth Year'].min()
+        most_common = df['Birth Year'].mode()[0]
+        print("Most Recent year of birth: {}\nEarliest year of birth: {}\nMost common year of birth: {}".format(most_recent, earliest, most_common))
 
     print("\nThis took %0.3f seconds." % (time.time() - start_time))
     print('-'*40)
@@ -216,7 +226,6 @@ def main():
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
-
 
 if __name__ == "__main__":
 	main()
