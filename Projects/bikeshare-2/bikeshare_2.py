@@ -5,8 +5,8 @@ import numpy as np
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
+MONTHS = ['january', 'february', 'march', 'april', 'may', 'june']
 
-#v1.1 is committed
 def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
@@ -37,52 +37,36 @@ def get_filters():
 
     # get user input for month (all, january, february, ... , june)
     while True:
-        month = int(input("Choose a month to filter the data with! 1. January, 2. February, 3. March, 4. April, 5. May, 6. June? Type all for no month filter\n"))
-        if month == 1:
-            month = "January"
+        month = input("Choose a month to filter the data with! January, February, March, April, May, June? Type all for no month filter\n").lower()
+        if month == 'all':
             break
-        elif month == 2:
-            month = "February"
-            break
-        elif month == 3:
-            month = "March"
-            break
-        elif month == 4:
-            month = "April"
-            break
-        elif month == 5:
-            month = "May"
-            break
-        elif month == 6:
-            month = "June"
-            break
-        elif month == "all":
+        elif month in MONTHS:
             break
         else:
-            print('Wrong entry, please only enter the number beside the month!')
+            print('Wrong entry, please enter the month name as it is in the question!')
         
     # get user input for day of week (all, monday, tuesday, ... sunday)
     while True:
-        day = int(input("Choose a day to filter the data with! 1. Saturaday, 2. Sunday, 3. Monday, 4. Tuesday, 5. Wednesday, 6. Thursday, 7. Friday? Type all for no day filter\n"))
-        if day == 1:
+        day = input("Choose a day to filter the data with! 1. Saturaday, 2. Sunday, 3. Monday, 4. Tuesday, 5. Wednesday, 6. Thursday, 7. Friday? Type all for no day filter\n")
+        if day == '1':
             day = "Saturaday"
             break
-        elif day == 2:
+        elif day == '2':
             day = "Sunday"
             break
-        elif day == 3:
+        elif day == '3':
             day = "Monday"
             break
-        elif day == 4:
+        elif day == '4':
             day = "Tuesday"
             break
-        elif day == 5:
+        elif day == '5':
             day = "Wednesday"
             break
-        elif day == 6:
+        elif day == '6':
             day = "Thursday"
             break
-        elif day == 7:
+        elif day == '7':
             day = "Friday"
             break
         elif day == "all":
@@ -94,7 +78,6 @@ def get_filters():
     print('-'*40)
     return city, month, day
 
-#v1 is committed
 def load_data(city, month, day):
     """
     Loads data for the specified city and filters by month and day if applicable.
@@ -113,7 +96,7 @@ def load_data(city, month, day):
 
     # extract month and day of week from Start Time to create new columns
     df['month'] = df['Start Time'].dt.month
-    df['day_of_week'] = df['Start Time'].dt.weekday_name
+    df['day_of_week'] = df['Start Time'].dt.day_name()
 
     # filter by month if applicable
     if month != 'all':
@@ -139,12 +122,27 @@ def time_stats(df):
     start_time = time.time()
 
     # display the most common month
-
+    popular_month = df['month'].mode()[0]
+    popular_month_count = len(df[df['month'] == popular_month])
 
     # display the most common day of week
+    popular_day_of_week = df['day_of_week'].mode()[0]
+    popular_day_of_week_count = len(df[df['day_of_week'] == popular_day_of_week])
 
+    #if the client choose to filter the data by a month or a day the lines won't printed
+    if df['month'].nunique() != 1:
+        print("Most popular month: {}, Count: {}".format(popular_month, popular_month_count))
+    if df['day_of_week'].nunique() != 1:
+        print("Most popular day of week: {}, Count: {}".format(popular_day_of_week, popular_day_of_week_count))
 
+    # find the most common hour (from 0 to 23)
+    df['hour'] = df['Start Time'].dt.hour
+    
     # display the most common start hour
+    popular_hour = df['hour'].mode()[0]
+    popular_hour_count = len(df[df['hour'] == popular_hour])
+    print("Most popular hour: {}, Count: {}".format(popular_hour, popular_hour_count))
+
 
 
     print("\nThis took %s seconds." % (time.time() - start_time))
