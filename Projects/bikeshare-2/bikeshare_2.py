@@ -6,6 +6,7 @@ CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
 
+#v1 is commited
 def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
@@ -17,12 +18,77 @@ def get_filters():
     """
     print('Hello! Let\'s explore some US bikeshare data!')
     # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-
+    try:
+        while True:
+            city_number = int(input("Would you like to see data for 1. Chicago, 2. New York, or 3. Washington? 'Only enter the city number'\n"))
+            if city_number == 1:
+                city = "chicago"
+                break
+            elif city_number == 2:
+                city = "new york city"
+                break
+            elif city_number == 3:
+                city = "washington"
+                break
+            else:
+                print('Wrong entry, please only enter the number beside the city!')
+    except ValueError:
+        print('Wrong entry, please only enter the number beside the city!')
 
     # get user input for month (all, january, february, ... , june)
-
-
+    while True:
+        month = int(input("Choose a month to filter the data with! 1. January, 2. February, 3. March, 4. April, 5. May, 6. June? Type none for no month filter\n"))
+        if month == 1:
+            month = "January"
+            break
+        elif month == 2:
+            month = "February"
+            break
+        elif month == 3:
+            month = "March"
+            break
+        elif month == 4:
+            month = "April"
+            break
+        elif month == 5:
+            month = "May"
+            break
+        elif month == 6:
+            month = "June"
+            break
+        elif month == "none":
+            break
+        else:
+            print('Wrong entry, please only enter the number beside the month!')
+        
     # get user input for day of week (all, monday, tuesday, ... sunday)
+    while True:
+        day = int(input("Choose a day to filter the data with! 1. Saturaday, 2. Sunday, 3. Monday, 4. Tuesday, 5. Wednesday, 6. Thursday, 7. Friday? Type none for no day filter\n"))
+        if day == 1:
+            day = "Saturaday"
+            break
+        elif day == 2:
+            day = "Sunday"
+            break
+        elif day == 3:
+            day = "Monday"
+            break
+        elif day == 4:
+            day = "Tuesday"
+            break
+        elif day == 5:
+            day = "Wednesday"
+            break
+        elif day == 6:
+            day = "Thursday"
+            break
+        elif day == 7:
+            day = "Friday"
+            break
+        elif day == 'none':
+            break
+        else:
+            print('Wrong entry, please only enter the number beside the day!')
 
 
     print('-'*40)
