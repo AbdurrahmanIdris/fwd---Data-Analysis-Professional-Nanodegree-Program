@@ -114,7 +114,6 @@ def load_data(city, month, day):
 
     return df
 
-
 def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
 
@@ -148,7 +147,6 @@ def time_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
-
 def station_stats(df):
     """Displays statistics on the most popular stations and trip."""
 
@@ -156,17 +154,25 @@ def station_stats(df):
     start_time = time.time()
 
     # display most commonly used start station
-
+    popular_start_station = df['Start Station'].mode()[0]
+    popular_start_station_count = len(df[df['Start Station'] == popular_start_station])
+    print("Most popular Start Station: {}, Count: {}".format(popular_start_station, popular_start_station_count))
 
     # display most commonly used end station
+    popular_end_station = df['End Station'].mode()[0]
+    popular_end_station_count = len(df[df['End Station'] == popular_end_station])
+    print("Most popular End Station: {}, Count: {}".format(popular_end_station, popular_end_station_count))
 
 
     # display most frequent combination of start station and end station trip
+    df['Combination'] = df['Start Station'] + " + " + df['End Station']
+    popular_combination = df['Combination'].mode()[0]
+    popular_combination_count = len(df[df['Combination'] == popular_combination])
+    print("Most frequent combination of start station and end station trip: {}, Count: {}".format(popular_combination, popular_combination_count))
 
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-
 
 def trip_duration_stats(df):
     """Displays statistics on the total and average trip duration."""
@@ -182,7 +188,6 @@ def trip_duration_stats(df):
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-
 
 def user_stats(df):
     """Displays statistics on bikeshare users."""
@@ -201,7 +206,6 @@ def user_stats(df):
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-
 
 def main():
     while True:
