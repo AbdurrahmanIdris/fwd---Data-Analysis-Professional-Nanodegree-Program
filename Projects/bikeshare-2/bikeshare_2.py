@@ -74,7 +74,6 @@ def get_filters():
         else:
             print('Wrong entry, please only enter the number beside the day!')
 
-
     print('-'*40)
     return city, month, day
 
@@ -103,7 +102,6 @@ def load_data(city, month, day):
         # use the index of the months list to get the corresponding int
         months = ['january', 'february', 'march', 'april', 'may', 'june']
         month = months.index(month) + 1
-    
         # filter by month to create the new dataframe
         df = df[df['month'] == month]
 
@@ -142,9 +140,7 @@ def time_stats(df):
     popular_hour_count = len(df[df['hour'] == popular_hour])
     print("Most popular hour: {}, Count: {}".format(popular_hour, popular_hour_count))
 
-
-
-    print("\nThis took %s seconds." % (time.time() - start_time))
+    print("\nThis took %0.3f seconds." % (time.time() - start_time))
     print('-'*40)
 
 def station_stats(df):
@@ -163,15 +159,13 @@ def station_stats(df):
     popular_end_station_count = len(df[df['End Station'] == popular_end_station])
     print("Most popular End Station: {}, Count: {}".format(popular_end_station, popular_end_station_count))
 
-
     # display most frequent combination of start station and end station trip
-    df['Combination'] = df['Start Station'] + " + " + df['End Station']
+    df['Combination'] = "FROM " + df['Start Station'] + " TO " + df['End Station']
     popular_combination = df['Combination'].mode()[0]
     popular_combination_count = len(df[df['Combination'] == popular_combination])
     print("Most frequent combination of start station and end station trip: {}, Count: {}".format(popular_combination, popular_combination_count))
 
-
-    print("\nThis took %s seconds." % (time.time() - start_time))
+    print("\nThis took %0.3f seconds." % (time.time() - start_time))
     print('-'*40)
 
 def trip_duration_stats(df):
@@ -181,12 +175,14 @@ def trip_duration_stats(df):
     start_time = time.time()
 
     # display total travel time
-
+    total_travel_time = df['Trip Duration'].sum()
+    print("Total travel time: {}, number of travels: {}".format(total_travel_time, len(df['Trip Duration'])))
 
     # display mean travel time
+    mean_travel_time = df['Trip Duration'].mean()
+    print("Mean travel time: {}".format(mean_travel_time))
 
-
-    print("\nThis took %s seconds." % (time.time() - start_time))
+    print("\nThis took %0.3f seconds." % (time.time() - start_time))
     print('-'*40)
 
 def user_stats(df):
@@ -204,7 +200,7 @@ def user_stats(df):
     # Display earliest, most recent, and most common year of birth
 
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
+    print("\nThis took %0.3f seconds." % (time.time() - start_time))
     print('-'*40)
 
 def main():
