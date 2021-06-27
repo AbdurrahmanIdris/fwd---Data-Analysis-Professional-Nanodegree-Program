@@ -18,8 +18,8 @@ def get_filters():
     """
     print('Hello! Let\'s explore some US bikeshare data!')
     # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-    try:
-        while True:
+    while True:
+        try:
             city_number = int(input("Would you like to see data for 1. Chicago, 2. New York, or 3. Washington? 'Only enter the city number'\n"))
             if city_number == 1:
                 city = "chicago"
@@ -31,9 +31,9 @@ def get_filters():
                 city = "washington"
                 break
             else:
-                print('Wrong entry, please only enter the number beside the city!')
-    except ValueError:
-        print('Wrong entry, please only enter the number beside the city!')
+                print('Wrong entry, please enter the correct NUMBER of the city!')
+        except ValueError:
+            print('Wrong entry, please only enter the NUMBER beside the city!')
 
     # get user input for month (all, january, february, ... , june)
     while True:
@@ -72,7 +72,7 @@ def get_filters():
         elif day == "all":
             break
         else:
-            print('Wrong entry, please only enter the number beside the day!')
+            print('Wrong entry, please only enter the NUMBER beside the day!')
 
     print('-'*40)
     return city, month, day
